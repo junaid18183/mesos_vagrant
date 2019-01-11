@@ -15,12 +15,23 @@
       src: yum.conf
       dest: /etc/yum.conf
     tags: files
+
+  - name: write /etc/default/marathon
+    file:
+      src: marathon_conf
+      dest: /etc/default/marathon
+    tags: files
   
   - shell: rpm -Uvh http://repos.mesosphere.com/el/7/noarch/RPMS/mesosphere-el-repo-7-1.noarch.rpm
     ignore_errors: true
 
   - shell: rpm -Uvh http://archive.cloudera.com/cdh4/one-click-install/redhat/6/x86_64/cloudera-cdh-4-0.x86_64.rpm
     ignore_errors: true
+
+  - name: Install java
+    yum:
+      name: java-1.8.0-openjdk.x86_64
+      state: latest
   
   - name: Install mesos
     yum: 
