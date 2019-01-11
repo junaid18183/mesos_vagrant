@@ -5,13 +5,13 @@
 
   tasks:
   - name: write /etc/hosts
-    file:
+    copy:
       src: hostsfile
       dest: /etc/hosts
     tags: files
 
   - name: write /etc/yum.conf
-    file:
+    copy:
       src: yum.conf
       dest: /etc/yum.conf
     tags: files
@@ -25,6 +25,11 @@
   - name: Install java
     yum:
       name: java-1.8.0-openjdk.x86_64
+      state: latest
+
+  - name: Install docker
+    yum:
+      name: docker
       state: latest
   
   - name: Install mesos
@@ -62,6 +67,12 @@
       state: started
       enabled: yes  
 
+  - name: write /etc/mesos-slave/containerizers
+    copy:
+      src: mesos-slave-containerizers
+      dest: /etc/mesos-slave/containerizers
+    tags: files
+
   - name: Start mesos-slave
     service: 
       name: mesos-slave
@@ -69,10 +80,16 @@
       enabled: yes
 
   - name: write /etc/default/marathon
-    file:
+    copy:
       src: marathon_conf
       dest: /etc/default/marathon
     tags: files
+
+  - name: Start docker
+    service: 
+      name: docker
+      state: started
+      enabled: yes  
 
   - name: Start marathon
     service: 
