@@ -16,12 +16,6 @@
       dest: /etc/yum.conf
     tags: files
 
-  - name: write /etc/default/marathon
-    file:
-      src: marathon_conf
-      dest: /etc/default/marathon
-    tags: files
-  
   - shell: rpm -Uvh http://repos.mesosphere.com/el/7/noarch/RPMS/mesosphere-el-repo-7-1.noarch.rpm
     ignore_errors: true
 
@@ -73,6 +67,12 @@
       name: mesos-slave
       state: started
       enabled: yes
+
+  - name: write /etc/default/marathon
+    file:
+      src: marathon_conf
+      dest: /etc/default/marathon
+    tags: files
 
   - name: Start marathon
     service: 

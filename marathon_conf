@@ -1,2 +1,5 @@
-export MARATHON_MASTER=zk://127.0.0.1:2181/mesos
-export MARATHON_ZK=zk://127.0.0.1:2181/marathon
+MARATHON_MASTER=zk://127.0.0.1:2181/mesos
+MARATHON_ZK=zk://127.0.0.1:2181/marathon
+#export MARATHON_MASTER=zk://127.0.0.1:2181/mesos
+#export MARATHON_ZK=zk://127.0.0.1:2181/marathon
+MARATHON_MESOS_USER="root"
